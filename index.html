@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>11/3 吉祥寺WARP 弾き語り × バー × フリマ</title>
+    <meta
+      name="description"
+      content="2026年11月3日、吉祥寺WARPで開催する弾き語り×バー×フリマの昼イベント特設サイト（下書き）"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!--
+      Netlify Forms はビルド後の静的HTMLを解析してフォームを検出するため、
+      React側（TicketForm.tsx）と同じ name / フィールド構成の
+      隠しフォームをここに用意しています。表示・編集は不要です。
+      参考: https://docs.netlify.com/forms/setup/#javascript-rendered-forms
+    -->
+    <form name="ticket-hold" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <select name="ticketType">
+        <option value="advance">advance</option>
+        <option value="under23">under23</option>
+      </select>
+      <input type="number" name="quantity" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+  </body>
+</html>
