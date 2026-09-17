@@ -3,26 +3,38 @@ import SectionTitle from "./ui/SectionTitle.jsx";
 import PhotoPlaceholder from "./ui/PhotoPlaceholder.jsx";
 import { PERFORMERS } from "../data/eventData.js";
 import { isRevealed, formatRevealDate, getNow } from "../lib/reveal.js";
+import { cornerRadius, tiltDeg } from "../lib/wobble.js";
 
 export default function Performers() {
   const now = getNow();
 
   return (
-    <section id="performers">
-      <div className="container">
+    <section id="performers" className="pad-normal">
+      <div className="container container--wide">
         <SectionTitle
-          label="Performers"
+          eyebrow="performers"
           title="出演者"
           sub="毎週水曜、出演者情報を少しずつ解禁していきます。"
+          seed={3}
+          mascot
         />
 
         <div className="card-grid">
           {PERFORMERS.map((p, i) => {
             const revealed = isRevealed(p.revealDate, now);
+            // 机に並べた写真のように、偶数番目を少し下にずらす
+            // （3-3）。CSSの stagger-even/odd は 760px 以上でのみ有効。
+            const staggerClass = i % 2 === 0 ? "stagger-odd" : "stagger-even";
 
             return (
-              <Reveal delay={i * 0.08} key={p.order}>
-                <div className="card">
+              <Reveal delay={i * 0.07} key={p.order} className={staggerClass}>
+                <div
+                  className="card"
+                  style={{
+                    borderRadius: cornerRadius(i),
+                    transform: `rotate(${tiltDeg(i, 0.9).toFixed(2)}deg)`,
+                  }}
+                >
                   <div className="card-media">
                     {revealed && p.photo ? (
                       <img src={p.photo} alt={p.name} />

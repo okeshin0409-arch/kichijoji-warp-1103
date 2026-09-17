@@ -4,20 +4,20 @@ import { ACCESS } from "../data/eventData.js";
 
 export default function Access() {
   return (
-    <section id="access">
+    <section id="access" className="pad-normal">
       <div className="container">
-        <SectionTitle label="Access" title="アクセス" />
+        <SectionTitle title="アクセス" seed={8} />
 
         <div className="access-grid">
           <Reveal className="access-detail">
             <dl>
-              <dt>Venue</dt>
+              <dt>venue</dt>
               <dd>{ACCESS.venue}</dd>
-              <dt>Address</dt>
+              <dt>address</dt>
               <dd>{ACCESS.address}</dd>
-              <dt>Tel</dt>
+              <dt>tel</dt>
               <dd>{ACCESS.tel}</dd>
-              <dt>Access</dt>
+              <dt>access</dt>
               <dd>{ACCESS.directions}</dd>
             </dl>
           </Reveal>

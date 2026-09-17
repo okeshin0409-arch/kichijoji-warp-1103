@@ -55,9 +55,9 @@ export default function TicketForm() {
   };
 
   return (
-    <section id="ticket">
-      <div className="container">
-        <SectionTitle label="Ticket" title="チケット取り置き" />
+    <section id="ticket" className="pad-normal">
+      <div className="container container--narrow">
+        <SectionTitle eyebrow="reserve" title="チケット取り置き" seed={7} />
 
         <AnimatePresence mode="wait">
           {status === "done" ? (

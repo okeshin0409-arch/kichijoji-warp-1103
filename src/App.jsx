@@ -1,4 +1,4 @@
-import Orbs from "./components/ui/Orbs.jsx";
+import FilmGrain from "./components/ui/FilmGrain.jsx";
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
 import Countdown from "./components/Countdown.jsx";
@@ -23,7 +23,7 @@ function PreviewBadge() {
 export default function App() {
   return (
     <>
-      <Orbs />
+      <FilmGrain />
       <Nav />
 
       <Hero />

@@ -7,9 +7,9 @@ export default function Timetable() {
   const now = getNow();
 
   return (
-    <section id="timetable">
-      <div className="container">
-        <SectionTitle label="Timetable" title="タイムテーブル" />
+    <section id="timetable" className="pad-tight">
+      <div className="container container--mid">
+        <SectionTitle title="タイムテーブル" seed={4} />
 
         <Reveal>
           <div className="timetable-list">

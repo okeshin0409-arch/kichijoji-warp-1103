@@ -32,10 +32,10 @@ export default function Countdown() {
   const { days, hours, minutes, seconds } = splitRemaining(TARGET_TS - now.getTime());
 
   const units = [
-    { value: days, label: "DAYS" },
-    { value: hours, label: "HOURS" },
-    { value: minutes, label: "MIN" },
-    { value: seconds, label: "SEC" },
+    { value: days, label: "days" },
+    { value: hours, label: "hours" },
+    { value: minutes, label: "min" },
+    { value: seconds, label: "sec" },
   ];
 
   return (

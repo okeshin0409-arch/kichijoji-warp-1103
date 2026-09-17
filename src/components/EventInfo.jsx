@@ -3,13 +3,13 @@ import SectionTitle from "./ui/SectionTitle.jsx";
 import TicketCta from "./TicketCta.jsx";
 import { EVENT } from "../data/eventData.js";
 
-const CELLS = [
-  { label: "Date", value: EVENT.dateLabelJa },
-  { label: "Venue", value: EVENT.venue },
-  { label: "Open", value: EVENT.open },
-  { label: "Start", value: EVENT.start },
+const ROWS = [
+  { label: "date", value: EVENT.dateLabelJa },
+  { label: "venue", value: EVENT.venue },
+  { label: "open", value: EVENT.open },
+  { label: "start", value: EVENT.start },
   {
-    label: "Price",
+    label: "price",
     value: (
       <>
         前売 {EVENT.price.advance}
@@ -23,20 +23,20 @@ const CELLS = [
 
 export default function EventInfo() {
   return (
-    <section id="info">
-      <div className="container">
-        <SectionTitle label="Live Info" title="ライブ情報" />
+    <section id="info" className="pad-tight">
+      <div className="container container--narrow">
+        <SectionTitle title="ライブ情報" seed={1} />
 
-        <Reveal delay={0.05}>
-          <div className="info-grid">
-            {CELLS.map((cell, i) => (
-              <div className="info-cell" key={cell.label}>
-                <div className="info-label">{cell.label}</div>
-                <div className="info-value">{cell.value}</div>
+        <div className="info-table">
+          {ROWS.map((row, i) => (
+            <Reveal as="div" delay={i * 0.05} key={row.label} amount={0.4}>
+              <div className="info-row">
+                <span className="info-label">{row.label}</span>
+                <span className="info-value">{row.value}</span>
               </div>
-            ))}
-          </div>
-        </Reveal>
+            </Reveal>
+          ))}
+        </div>
 
         <TicketCta />
       </div>

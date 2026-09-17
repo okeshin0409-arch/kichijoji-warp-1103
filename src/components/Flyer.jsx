@@ -3,6 +3,8 @@ import { EVENT, PERFORMERS } from "../data/eventData.js";
 import { isRevealed, getNow } from "../lib/reveal.js";
 import SectionTitle from "./ui/SectionTitle.jsx";
 import NoWrapPhrase from "./ui/NoWrapPhrase.jsx";
+import Tape from "./ui/Tape.jsx";
+import { tiltDeg } from "../lib/wobble.js";
 
 const EASE_OUT = [0.16, 1, 0.3, 1];
 
@@ -19,17 +21,18 @@ function LineupRow({ performer, now }) {
 
 export default function Flyer() {
   const now = getNow();
+  const rotate = tiltDeg(1, 1.8);
 
   return (
-    <section id="flyer">
-      <div className="container">
-        <SectionTitle label="Flyer" title="フライヤー" />
+    <section id="flyer" className="pad-normal">
+      <div className="container container--narrow">
+        <SectionTitle title="フライヤー" align="center" seed={0} />
 
         <div className="flyer-wrap">
           <motion.div
             className="flyer-poster"
-            initial={{ opacity: 0, y: 60, rotate: -1.5, filter: "blur(10px)" }}
-            whileInView={{ opacity: 1, y: 0, rotate: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 46, rotate: -3, filter: "blur(8px)" }}
+            whileInView={{ opacity: 1, y: 0, rotate, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 1.2, ease: EASE_OUT }}
           >
@@ -37,7 +40,8 @@ export default function Flyer() {
               <img className="flyer-photo" src={EVENT.flyerImage} alt={EVENT.name} />
             ) : (
               <>
-                <div className="deepsea-placeholder" style={{ position: "absolute" }} />
+                <div className="flyer-poster-surface" />
+                <Tape rotate={-5} top={-12} left={"calc(50% - 32px)"} width={64} />
                 <div className="flyer-poster-inner">
                   <div>
                     <div className="flyer-name">
