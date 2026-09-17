@@ -2,34 +2,50 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/jpeg" href="/images/hero-placeholder.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#04040f" />
     <title>11/3 吉祥寺WARP 弾き語り × バー × フリマ</title>
     <meta
       name="description"
-      content="2026年11月3日、吉祥寺WARPで開催する弾き語り×バー×フリマの昼イベント特設サイト（下書き）"
+      content="2026年11月3日（火・文化の日）吉祥寺WARPにて開催。弾き語りライブ × バー × フリーマーケット。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap"
+      rel="stylesheet"
     />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
 
     <!--
-      Netlify Forms はビルド後の静的HTMLを解析してフォームを検出するため、
-      React側（TicketForm.tsx）と同じ name / フィールド構成の
-      隠しフォームをここに用意しています。表示・編集は不要です。
-      参考: https://docs.netlify.com/forms/setup/#javascript-rendered-forms
+      Netlify Forms 検出用の静的隠しフォーム。
+      Netlify はビルド後のこの HTML を解析してフォームを登録するため、
+      React 側が動的に描画するフォームとは別に、ここに同名・同フィールド構成の
+      フォームを必ず用意する。
     -->
-    <form name="ticket-hold" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <form
+      name="ticket-hold"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+    >
       <input type="text" name="name" />
       <input type="email" name="email" />
       <select name="ticketType">
-        <option value="advance">advance</option>
-        <option value="under23">under23</option>
+        <option value="前売 ¥2,300">前売 ¥2,300</option>
+        <option value="U23 ¥1,300">U23 ¥1,300</option>
       </select>
       <input type="number" name="quantity" />
+      <select name="performer">
+        <option value="選ばない">選ばない</option>
+      </select>
       <textarea name="message"></textarea>
       <input type="text" name="bot-field" />
     </form>
+
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
