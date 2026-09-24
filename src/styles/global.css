@@ -793,9 +793,14 @@ section {
   object-fit: cover;
 }
 
+/* 【I-6】以前は inset:0 の絶対配置で、2:3 の枠に中身を押し込んでいた。
+   幅320px前後の端末では出演者名や料金が折り返して中身が枠より長くなり、
+   料金の行がポスターの外（下）にはみ出していた。中身を通常の流れに戻し、
+   「基本は 2:3、入りきらない時だけ縦に伸びる」挙動にする
+   （aspect-ratio は中身が収まらないとき自動で高さを伸ばす）。 */
 .flyer-poster-inner {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -852,6 +857,11 @@ section {
   font-size: 0.84rem;
   letter-spacing: 0.01em;
   color: var(--sumi-soft);
+}
+
+/* 料金が2行に折り返したとき、2行目が左に寄らないよう中央揃えにする */
+.flyer-price .nowrap-phrase {
+  justify-content: center;
 }
 
 .flyer-price {

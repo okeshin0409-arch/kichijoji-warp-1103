@@ -2,7 +2,7 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/images/cat.png" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#E9E0CE" />
     <!--
@@ -15,6 +15,27 @@
       name="description"
       content="けだまびより｜2026年11月3日（火・文化の日）吉祥寺WARPにて開催。弾き語りライブ × バー × フリーマーケット。"
     />
+    <!--
+      SNSシェア用（LINE / X / Facebook などでURLを貼ったときのプレビュー）。
+      %SITE_URL% はビルド時に Netlify のサイトURLへ自動で置き換わる（vite.config.js）。
+      【イベント名が正式決定したら】下の og:title / og:description / twitter:title と、
+      プレビュー画像 public/images/ogp.jpg（画像内に「けだまびより」の文字あり）も差し替えること。
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="けだまびより" />
+    <meta property="og:title" content="けだまびより｜11/3 吉祥寺WARP 弾き語り × バー × フリマ" />
+    <meta
+      property="og:description"
+      content="2026年11月3日（火・文化の日）吉祥寺WARP。OPEN 10:30 / START 11:30。弾き語りライブ × バー × フリーマーケット。"
+    />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/images/ogp.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="けだまびより｜11/3 吉祥寺WARP 弾き語り × バー × フリマ" />
+    <meta name="twitter:image" content="%SITE_URL%/images/ogp.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

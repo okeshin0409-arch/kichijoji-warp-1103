@@ -70,7 +70,9 @@ export default function Flyer() {
                         "/",
                         `DOOR ${EVENT.price.door}`,
                         "/",
-                        `U23 ${EVENT.price.u23}`,
+                        // ドリンク代は最後の料金とセットにして、「(+1D)」だけが
+                        // 行頭に取り残される改行を防ぐ。
+                        `U23 ${EVENT.price.u23} (${EVENT.price.drink})`,
                       ]}
                     />
                   </div>

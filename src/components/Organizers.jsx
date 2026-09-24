@@ -17,7 +17,7 @@ export default function Organizers() {
   return (
     <section id="organizers" className="pad-tight">
       <div className="container">
-        <SectionTitle title="主催・協賛" seed={2} />
+        <SectionTitle title="主催・共催" seed={2} />
 
         <div className={useHorizontal ? "org-list" : "card-grid"}>
           {entries.map((org, i) => (

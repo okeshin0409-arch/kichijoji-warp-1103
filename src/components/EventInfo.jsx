@@ -12,9 +12,10 @@ const ROWS = [
     label: "price",
     value: (
       <>
-        前売 {EVENT.price.advance}
+        前売 {EVENT.price.advance} {EVENT.price.drink}
         <small>
-          当日 {EVENT.price.door} / U23 {EVENT.price.u23}
+          当日 {EVENT.price.door} {EVENT.price.drink} / U23 {EVENT.price.u23}{" "}
+          {EVENT.price.drink}
         </small>
       </>
     ),
