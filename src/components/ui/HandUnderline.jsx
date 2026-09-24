@@ -14,6 +14,7 @@ export default function HandUnderline({
   seed = 0,
   width = 150,
   className = "",
+  style,
 }) {
   const d = PATHS[Math.abs(seed) % PATHS.length];
   return (
@@ -24,6 +25,7 @@ export default function HandUnderline({
       height={12}
       preserveAspectRatio="none"
       aria-hidden="true"
+      style={style}
     >
       <path d={d} fill="none" strokeWidth="1.6" strokeLinecap="round" />
     </svg>

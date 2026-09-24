@@ -5,10 +5,15 @@
     <link rel="icon" type="image/png" href="/images/cat.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#E9E0CE" />
-    <title>11/3 吉祥寺WARP 弾き語り × バー × フリマ</title>
+    <!--
+      【重要】ここ（<title> と下の meta description）は静的HTMLのため、
+      src/data/eventData.js の EVENT.name を書き換えても自動では変わらない。
+      イベント名が正式決定したら、このタイトルと説明文も手動で書き換えること。
+    -->
+    <title>けだまびより｜11/3 吉祥寺WARP 弾き語り × バー × フリマ</title>
     <meta
       name="description"
-      content="2026年11月3日（火・文化の日）吉祥寺WARPにて開催。弾き語りライブ × バー × フリーマーケット。"
+      content="けだまびより｜2026年11月3日（火・文化の日）吉祥寺WARPにて開催。弾き語りライブ × バー × フリーマーケット。"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,32 +24,6 @@
   </head>
   <body>
     <div id="root"></div>
-
-    <!--
-      Netlify Forms 検出用の静的隠しフォーム。
-      Netlify はビルド後のこの HTML を解析してフォームを登録するため、
-      React 側が動的に描画するフォームとは別に、ここに同名・同フィールド構成の
-      フォームを必ず用意する。
-    -->
-    <form
-      name="ticket-hold"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      hidden
-    >
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <select name="ticketType">
-        <option value="前売 ¥2,300">前売 ¥2,300</option>
-        <option value="U23 ¥1,300">U23 ¥1,300</option>
-      </select>
-      <input type="number" name="quantity" />
-      <select name="performer">
-        <option value="選ばない">選ばない</option>
-      </select>
-      <textarea name="message"></textarea>
-      <input type="text" name="bot-field" />
-    </form>
 
     <script type="module" src="/src/main.jsx"></script>
   </body>

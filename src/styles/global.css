@@ -193,11 +193,6 @@ section {
   justify-content: center;
 }
 
-.section-title--center .hand-underline {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .section-title-row {
   display: flex;
   align-items: baseline;
@@ -269,7 +264,9 @@ section {
 
 /* ------------------------------------------------------------------------
    紙に貼ったプリント（写真の共通スタイル）
-   白フチ＋短く硬い影＋わずかな回転。ヒーローの sea.jpg 等に使う。
+   白フチ＋短く硬い影＋わずかな回転。今後、施主から写真が支給された
+   ときに使うための汎用スタイルとして残してある（G-5 でヒーローの
+   写真は廃止したため、現時点ではどこからも参照していない）。
    ------------------------------------------------------------------------ */
 
 .paper-print {
@@ -352,9 +349,12 @@ section {
   margin: 0 0 4px;
 }
 
+/* 主催・協賛と出演者、どちらも「人名が主役、所属バンド名は控えめ」に
+   統一する（施主指摘）。名前（.card-name 1.1rem）に対して、はっきり
+   小さく・薄い色にする。 */
 .card-unit {
-  font-size: 0.84rem;
-  color: var(--sumi-soft);
+  font-size: 0.78rem;
+  color: var(--sumi-faint);
   margin: 0 0 8px;
 }
 
@@ -370,13 +370,6 @@ section {
   font-size: 0.85rem;
   color: var(--sumi-soft);
   line-height: 1.85;
-}
-
-.card-reveal-note {
-  margin-top: 8px;
-  font-size: 0.76rem;
-  letter-spacing: 0.03em;
-  color: var(--sumi-faint);
 }
 
 .org-role {
@@ -555,14 +548,24 @@ section {
 
 /* ------------------------------------------------------------------------
    Hero
-   全画面写真＋中央テキストというテンプレート構成をやめ、紙の地の上に
-   sea.jpg を1枚のプリントとして貼った構図にする（原因①③への対処）。
+   【G-5】写真つき2カラム構成をやめ、min-height: 100svh の中にタイトル
+   一式を縦中央に置くだけの構成に作り直した。iOSでアドレスバーの
+   出し引きによって高さが変わっても、100vh のような「上に謎の空白が
+   できる」問題が起きないよう svh を使う（フォールバックとして先に
+   vh も指定しておく）。
    ------------------------------------------------------------------------ */
 
 .hero {
   position: relative;
-  padding: 148px 24px 96px;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px 96px;
   overflow: hidden;
+  text-align: center;
 }
 
 .hero-veil {
@@ -573,48 +576,29 @@ section {
   pointer-events: none;
 }
 
-.hero-grid {
-  max-width: 1080px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: 56px;
+.hero-inner {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-@media (max-width: 880px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-}
-
-.hero-photo-wrap {
-  position: relative;
-}
-
-.hero-photo {
-  position: relative;
-  max-width: 460px;
-  margin: 0 auto;
-  transform: rotate(-1.5deg);
-}
-
-.hero-photo .paper-print {
-  aspect-ratio: 4 / 5;
-}
-
+/* 猫はヒーローに1匹だけ。以前はタイトルの右肩に重ねる形だったが、
+   幅390pxではタイトル最後の文字に被って読めなくなっていた
+   （H-1）。通常のブロック要素として日付の行より上に完全に独立して
+   置くことで、テキストとの重なりが原理的に起こらないようにする。 */
 .hero-cat {
-  position: absolute;
-  width: 92px;
-  right: -22px;
-  bottom: -30px;
+  display: block;
+  width: 64px;
+  margin: 0 0 14px;
   filter: drop-shadow(0 6px 10px rgba(62, 65, 54, 0.18));
-  z-index: 2;
 }
 
-.hero-text {
-  position: relative;
+@media (max-width: 560px) {
+  .hero-cat {
+    width: 50px;
+    margin-bottom: 10px;
+  }
 }
 
 .hero-eyebrow {
@@ -623,46 +607,50 @@ section {
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   color: var(--umi-deep);
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
 .hero-title {
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  letter-spacing: 0.01em;
-  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  letter-spacing: 0.02em;
+  font-size: clamp(2.6rem, 9vw, 4.6rem);
   color: var(--sumi);
+  line-height: 1.15;
 }
 
-.hero-title .line {
-  display: block;
-  overflow: visible;
-}
-
-.hero-title .line + .line {
-  margin-top: 6px;
+.hero-subtitle {
+  margin: 26px 0 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  font-size: clamp(1rem, 2.6vw, 1.2rem);
+  color: var(--sumi-soft);
 }
 
 .hero-meta {
-  margin-top: 26px;
+  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px 24px;
   font-family: var(--font-sans);
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   letter-spacing: 0.02em;
   color: var(--sumi-soft);
 }
 
 /* 本文の続きのように文中に置くと「何のための線か」が伝わらない
-   （施主指摘）ため、本文の流れからは外し、ヒーロー全体の左下に
-   独立して固定する。線も縦向きにして「下にスクロール」という
-   意味が一目で分かるようにする。 */
+   （施主指摘）ため、本文の流れからは外し、画面下部中央に独立して
+   固定する。線も縦向きにして「下にスクロール」という意味が
+   一目で分かるようにする。ヒーローが中央揃えの構成になったので、
+   誘導もタイトル列の真下・画面下端に置く。 */
 .hero-scroll-cue {
   position: absolute;
-  left: 24px;
-  bottom: 22px;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -950,6 +938,22 @@ section {
   transform: translateX(3px);
 }
 
+/* URL未着で押せない間の見た目。ボタンの形は保ちつつ、
+   カーソルは通常のまま・発光やホバー変化を出さない。 */
+.btn-glow--disabled {
+  cursor: default;
+  background: var(--paper-deep);
+  border-color: var(--line);
+  color: var(--sumi-faint);
+  box-shadow: none;
+}
+
+.btn-glow--disabled:hover {
+  transform: none;
+  background: var(--paper-deep);
+  border-color: var(--line);
+}
+
 /* ------------------------------------------------------------------------
    カードグリッド（出演者・主催）
    ------------------------------------------------------------------------ */
@@ -1123,143 +1127,6 @@ section {
 
 .coming-panel .coming-soon {
   font-size: 1.4rem;
-}
-
-.coming-panel .reveal-note {
-  margin-top: 16px;
-  font-size: 0.8rem;
-  color: var(--sumi-faint);
-  letter-spacing: 0.02em;
-}
-
-/* ------------------------------------------------------------------------
-   チケット取り置きフォーム（明るい前提で作り直し）
-   ------------------------------------------------------------------------ */
-
-.ticket-form {
-  max-width: 520px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  text-align: left;
-}
-
-.field label {
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  color: var(--sumi-soft);
-}
-
-.field .required {
-  color: var(--umi-deep);
-  margin-left: 4px;
-}
-
-.field input,
-.field select,
-.field textarea {
-  appearance: none;
-  width: 100%;
-  padding: 13px 15px;
-  border-radius: 2px;
-  border: 1px solid var(--line);
-  background: var(--paper-pale);
-  color: var(--sumi);
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  transition: border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
-}
-
-.field textarea {
-  min-height: 104px;
-  resize: vertical;
-}
-
-.field select {
-  background-image: linear-gradient(45deg, transparent 50%, var(--sumi-soft) 50%),
-    linear-gradient(135deg, var(--sumi-soft) 50%, transparent 50%);
-  background-position: calc(100% - 22px) calc(50% - 3px), calc(100% - 16px) calc(50% - 3px);
-  background-size: 6px 6px, 6px 6px;
-  background-repeat: no-repeat;
-}
-
-.field select option {
-  background: var(--paper-pale);
-  color: var(--sumi);
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color: var(--sumi-faint);
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  outline: none;
-  border-color: var(--umi);
-  box-shadow: 0 0 0 3px rgba(133, 152, 158, 0.16);
-}
-
-.honeypot-field {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-.form-submit {
-  margin-top: 4px;
-  width: 100%;
-  justify-content: center;
-}
-
-.form-note {
-  margin-top: 18px;
-  font-size: 0.8rem;
-  color: var(--sumi-faint);
-}
-
-.form-success {
-  text-align: left;
-  padding: 48px 32px;
-  max-width: 520px;
-  border: 1px solid var(--line);
-  background: var(--paper-pale);
-  box-shadow: 0 2px 0 rgba(62, 65, 54, 0.06), 0 8px 16px rgba(62, 65, 54, 0.1);
-}
-
-.form-success .label {
-  font-family: var(--font-sans);
-  letter-spacing: 0.08em;
-  color: var(--umi-deep);
-  margin-bottom: 12px;
-  font-size: 0.78rem;
-}
-
-.form-success h3 {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  font-size: 1.25rem;
-  margin: 0 0 10px;
-  color: var(--sumi);
-}
-
-.form-success p {
-  color: var(--sumi-soft);
-}
-
-.form-error {
-  color: #9a4a3d;
-  font-size: 0.85rem;
 }
 
 /* ------------------------------------------------------------------------

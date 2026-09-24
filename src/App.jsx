@@ -9,7 +9,6 @@ import Performers from "./components/Performers.jsx";
 import Timetable from "./components/Timetable.jsx";
 import FleaMarket from "./components/FleaMarket.jsx";
 import Bar from "./components/Bar.jsx";
-import TicketForm from "./components/TicketForm.jsx";
 import Access from "./components/Access.jsx";
 import Footer from "./components/Footer.jsx";
 import { getPreviewParam } from "./lib/reveal.js";
@@ -35,7 +34,6 @@ export default function App() {
       <Timetable />
       <FleaMarket />
       <Bar />
-      <TicketForm />
       <Access />
       <Footer />
 

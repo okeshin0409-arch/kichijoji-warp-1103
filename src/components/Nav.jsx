@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { EVENT } from "../data/eventData.js";
 
 const LINKS = [
   { href: "#info", label: "info" },
@@ -32,7 +33,7 @@ export default function Nav() {
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
         <a href="#top" className="nav-brand">
-          WARP
+          {EVENT.name}
         </a>
         <ul className="nav-links">
           {LINKS.map((link) => (

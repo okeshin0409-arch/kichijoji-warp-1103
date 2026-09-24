@@ -2,7 +2,7 @@ import Reveal from "./ui/Reveal.jsx";
 import SectionTitle from "./ui/SectionTitle.jsx";
 import PhotoPlaceholder from "./ui/PhotoPlaceholder.jsx";
 import { PERFORMERS } from "../data/eventData.js";
-import { isRevealed, formatRevealDate, getNow } from "../lib/reveal.js";
+import { isRevealed, getNow } from "../lib/reveal.js";
 import { cornerRadius, tiltDeg } from "../lib/wobble.js";
 
 export default function Performers() {
@@ -11,13 +11,7 @@ export default function Performers() {
   return (
     <section id="performers" className="pad-normal">
       <div className="container container--wide">
-        <SectionTitle
-          eyebrow="performers"
-          title="出演者"
-          sub="毎週水曜、出演者情報を少しずつ解禁していきます。"
-          seed={3}
-          mascot
-        />
+        <SectionTitle eyebrow="performers" title="出演者" seed={3} mascot />
 
         <div className="card-grid">
           {PERFORMERS.map((p, i) => {
@@ -57,12 +51,7 @@ export default function Performers() {
                         ) : null}
                       </>
                     ) : (
-                      <>
-                        <h3 className="coming-soon">coming soon</h3>
-                        <p className="card-reveal-note">
-                          {formatRevealDate(p.revealDate)} 解禁
-                        </p>
-                      </>
+                      <h3 className="coming-soon">coming soon</h3>
                     )}
                   </div>
                 </div>

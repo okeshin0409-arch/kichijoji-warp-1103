@@ -9,10 +9,7 @@ export default function Footer() {
       <div className="footer-brand">{EVENT.venue}</div>
       <div className="footer-meta">
         <NoWrapPhrase
-          tokens={[
-            `© ${year} ${EVENT.nameLines[0]}`,
-            ...EVENT.nameLine2Tokens,
-          ]}
+          tokens={[`© ${year} ${EVENT.name}`, ...EVENT.subtitleTokens]}
         />
       </div>
     </footer>

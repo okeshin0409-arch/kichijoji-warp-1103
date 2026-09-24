@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { motion } from "framer-motion";
 import { revealVariance } from "../../lib/wobble.js";
 
@@ -27,26 +27,37 @@ const MOTION_TAGS = {
 // これでリロードしても同じ配置になる）。
 let mountOrder = 0;
 
-export default function Reveal({
-  children,
-  delay = 0,
-  className = "",
-  as = "div",
-  amount = 0.18,
-  seed,
-  ...rest
-}) {
+// tilt=false の用途（見出しなど）：回転が入ると、回転の中心が要素の
+// ブロック中央になるため、縦に離れた2つの子要素（見出し文字と下線）の
+// 左端がアニメーション中〜直後にわずかにズレて見えることがある
+// （G-2 対応）。見出しのように「文字の左端＝下線の左端」を厳密に
+// 揃えたい要素では tilt={false} を渡し、回転を一切かけない。
+const Reveal = forwardRef(function Reveal(
+  {
+    children,
+    delay = 0,
+    className = "",
+    as = "div",
+    amount = 0.18,
+    seed,
+    tilt = true,
+    ...rest
+  },
+  ref
+) {
   const [idx] = useState(() => (seed ?? mountOrder++));
   const { distance, duration, rotate } = revealVariance(idx);
+  const appliedRotate = tilt ? rotate : 0;
   const MotionTag = MOTION_TAGS[as] || motion.div;
 
   return (
     <MotionTag
+      ref={ref}
       className={className}
       initial={{
         opacity: 0,
         y: distance,
-        rotate,
+        rotate: appliedRotate,
         filter: "blur(7px)",
       }}
       whileInView={{ opacity: 1, y: 0, rotate: 0, filter: "blur(0px)" }}
@@ -57,4 +68,6 @@ export default function Reveal({
       {children}
     </MotionTag>
   );
-}
+});
+
+export default Reveal;

@@ -45,11 +45,9 @@ export default function Flyer() {
                 <div className="flyer-poster-inner">
                   <div>
                     <div className="flyer-name">
+                      <span className="flyer-name-line">{EVENT.name}</span>
                       <span className="flyer-name-line">
-                        {EVENT.nameLines[0]}
-                      </span>
-                      <span className="flyer-name-line">
-                        <NoWrapPhrase tokens={EVENT.nameLine2Tokens} />
+                        <NoWrapPhrase tokens={EVENT.subtitleTokens} />
                       </span>
                     </div>
                     <div className="flyer-date">{EVENT.dateLabel}</div>
