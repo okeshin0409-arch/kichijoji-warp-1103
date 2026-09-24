@@ -15,7 +15,12 @@
 
   /* 墨（本文・見出し。純黒は使わない） */
   --sumi: #3e4136;
-  --sumi-soft: #6e7064;
+  /* 【I-1】見出し以外の本文色（--sumi-soft）が薄すぎて読みにくいという
+     施主指摘。実測コントラスト比は紙色に対して 3.5〜4.5:1 と、本文
+     テキストの推奨値（4.5:1）を下回っていた。#54564a に濃くすることで
+     紙3色（--paper/--paper-pale/--paper-deep）すべてに対し 5:1 以上を
+     確保しつつ、見出し(--sumi)よりは軽い階調を保つ。 */
+  --sumi-soft: #54564a;
   --sumi-faint: #9a9a8c;
 
   /* 羊毛 */
@@ -246,7 +251,7 @@ section {
   max-width: 42em;
   color: var(--sumi-soft);
   font-weight: 300;
-  font-size: 0.94rem;
+  font-size: 1.02rem;
 }
 
 /* ------------------------------------------------------------------------
@@ -367,7 +372,7 @@ section {
 
 .card-profile {
   margin-top: 10px;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   color: var(--sumi-soft);
   line-height: 1.85;
 }
@@ -829,7 +834,7 @@ section {
 
 .flyer-schedule {
   margin-top: 8px;
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   letter-spacing: 0.02em;
   color: var(--sumi-soft);
 }
@@ -1022,6 +1027,20 @@ section {
 .org-card-media {
   position: relative;
   flex: 0 0 140px;
+  overflow: hidden;
+  background: var(--paper-deep);
+}
+
+/* 【I-2】org.logo に実写真が入るケースが今回初めて発生。.card-media 用の
+   img ルールは .org-card-media には及んでおらず、img が原寸のまま
+   カードを突き破って崩れるバグがあった（これまで logo は常に空文字
+   だったため露見していなかった）。.card-media img と同じ cover 指定を
+   横型カードにも適用する。 */
+.org-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .org-card-body {
@@ -1088,7 +1107,7 @@ section {
 }
 
 .timetable-note {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--sumi-soft);
 }
 

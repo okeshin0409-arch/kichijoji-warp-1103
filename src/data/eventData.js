@@ -55,7 +55,7 @@ export const EVENT = {
   // 空文字の間は TicketCta.jsx が「取り置き受付 coming soon」という
   // 押せないボタンを表示する。URLが入り次第、自動で通常の
   // リンクボタン（新しいタブで開く）に切り替わる。
-  ticketFormUrl: "",
+  ticketFormUrl: "https://forms.gle/iE2oKiHUgWHrnUnt9",
 };
 
 // ----------------------------------------------------------------------------
@@ -133,18 +133,18 @@ export const TIMETABLE_HEAD = {
 // ----------------------------------------------------------------------------
 export const ORGANIZERS = [
   {
-    role: "主催",
+    role: "共催",
     name: "ハシイユキネ",
     unit: "よすが",
     logo: "",
     url: "",
   },
   {
-    role: "主催",
+    role: "共催",
     name: "おけた",
     // バンド名は未確認のため空のまま（空なら何も表示しない）。
     unit: "",
-    logo: "",
+    logo: "/images/oketa.jpg",
     url: "",
   },
   // 協賛の情報が確定次第、同じ形で追加してください。
