@@ -12,8 +12,7 @@ const EASE_OUT = [0.16, 1, 0.3, 1];
 //
 // 【J-5】メインキャラクターを、フライヤー第1弾のキャラクターに変更。
 // フライヤーと同じく「画面の右端からのぞき込んでいる」構図で置く。
-// 羊毛フェルトの猫は脇役に回し、ヒーローからは外した
-// （出演者見出しのアイコンとフッターに小さく残している）。
+// 【J-10】羊毛フェルトの猫も脇役として、反対側（左）に小さく置く。
 // キャラクターが企画名などの文字に重なるのは厳禁（H-1 の教訓）。
 //  ・スマホ〜タブレット：文字ブロックの下に「通常の流れ」で置き、右端へ
 //    はみ出させる。縦に積むだけなので、幅に関わらず文字と重ならない。
@@ -84,23 +83,42 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* メインキャラクター：右端の外から、そっとのぞき込んでくる。
+      {/* キャラクター2体。スマホ〜タブレットでは文字の下に横並び（左：猫、
+          右：メインキャラ）で置き、広い画面では左右の端に分かれて置く。
           入場（横からスッと出てくる）は framer-motion、その後のゆらゆらは
           CSS アニメーション。同じ要素に両方をかけると transform が
           ぶつかるため、外側（入場）と内側（ゆらぎ）で要素を分けている。 */}
-      <motion.div
-        className="hero-chara"
-        initial={{ opacity: 0, x: 70 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.3, ease: EASE_OUT, delay: 1.15 }}
-      >
-        <img
-          className="hero-chara-img chara-sway"
-          src="/images/chara.webp"
-          alt=""
-          aria-hidden="true"
-        />
-      </motion.div>
+      <div className="hero-friends">
+        {/* 脇役：羊毛フェルトの猫（左側） */}
+        <motion.div
+          className="hero-cat-side"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: EASE_OUT, delay: 1.35 }}
+        >
+          <img
+            className="hero-cat-side-img cat-bob"
+            src="/images/cat-hero.png"
+            alt=""
+            aria-hidden="true"
+          />
+        </motion.div>
+
+        {/* メイン：フライヤーのキャラクター（右端の外からのぞき込む） */}
+        <motion.div
+          className="hero-chara"
+          initial={{ opacity: 0, x: 70 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.3, ease: EASE_OUT, delay: 1.15 }}
+        >
+          <img
+            className="hero-chara-img chara-sway"
+            src="/images/chara.webp"
+            alt=""
+            aria-hidden="true"
+          />
+        </motion.div>
+      </div>
 
       {/* スクロールするとすぐフライヤーが浮かび上がってくる、という
           流れの入口。画面下部に独立して置く（本文の続きに見せない）。 */}

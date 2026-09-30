@@ -37,23 +37,15 @@ export default function Flyer() {
             transition={{ duration: 1.2, ease: EASE_OUT }}
           >
             {EVENT.flyerImage ? (
-              // 【J-1】本番フライヤー画像。スマホでは文字が小さくなるため、
-              // タップすると原寸の画像が別タブで開くようにしている。
+              // 【J-1】本番フライヤー画像。
+              // （J-8：タップで原寸を別タブで開く機能は、施主の判断で外した）
               <>
                 <Tape rotate={-4} top={-12} left={"calc(50% - 32px)"} width={64} />
-                <a
-                  className="flyer-photo-link"
-                  href={EVENT.flyerImage}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="フライヤーを大きく表示する（新しいタブで開きます）"
-                >
-                  <img
-                    className="flyer-photo"
-                    src={EVENT.flyerImage}
-                    alt={`${EVENT.name} フライヤー`}
-                  />
-                </a>
+                <img
+                  className="flyer-photo"
+                  src={EVENT.flyerImage}
+                  alt={`${EVENT.name} フライヤー`}
+                />
               </>
             ) : (
               <>

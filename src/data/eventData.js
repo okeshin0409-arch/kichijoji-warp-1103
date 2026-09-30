@@ -66,8 +66,10 @@ export const EVENT = {
 // ----------------------------------------------------------------------------
 // 出演者（この配列の並び順 = 出演順）
 // 各25分ステージ・転換10分は確定事項。
-// photo / profile は後日支給。空のままで良い（自動的にプレースホルダー表示、
-// または何も表示しない扱いになる）。
+// photo / profile は支給され次第入れる。空のままで良い（自動的にプレースホルダー表示、
+// または何も表示しない扱いになる）。写真は解禁日を過ぎるまで表示されない。
+// x は個人のX（旧Twitter）のプロフィールURL（例 "https://x.com/xxxx"）。
+// 空のあいだはXボタン自体を出さない。
 // ----------------------------------------------------------------------------
 export const PERFORMERS = [
   {
@@ -75,7 +77,8 @@ export const PERFORMERS = [
     time: "11:30 - 11:55",
     name: "宝",
     unit: "nett!",
-    photo: "",
+    photo: "/images/artists/takara.jpg",
+    x: "",
     profile: "",
     revealDate: "2026-09-23",
   },
@@ -84,7 +87,8 @@ export const PERFORMERS = [
     time: "12:05 - 12:30",
     name: "梅サワ",
     unit: "海風邪 / Rhakka",
-    photo: "",
+    photo: "/images/artists/umesawa.jpg",
+    x: "",
     profile: "",
     revealDate: "2026-09-23",
   },
@@ -93,7 +97,8 @@ export const PERFORMERS = [
     time: "12:40 - 13:05",
     name: "淡甘",
     unit: "終日柄",
-    photo: "",
+    photo: "/images/artists/awaama.jpg",
+    x: "",
     profile: "",
     revealDate: "2026-09-30",
   },
@@ -103,6 +108,7 @@ export const PERFORMERS = [
     name: "フクダチナツ",
     unit: "ウマシカて",
     photo: "",
+    x: "",
     profile: "",
     revealDate: "2026-10-07",
   },
@@ -111,7 +117,8 @@ export const PERFORMERS = [
     time: "13:50 - 14:15",
     name: "はしちゃん",
     unit: "よすが",
-    photo: "",
+    photo: "/images/artists/hashichan.jpg",
+    x: "",
     profile: "",
     revealDate: "2026-09-23",
   },
@@ -141,8 +148,9 @@ export const ORGANIZERS = [
     role: "主催",
     name: "はしちゃん",
     unit: "よすが",
-    logo: "",
-    url: "",
+    logo: "/images/artists/hashichan.jpg",
+    // X（旧Twitter）のプロフィールURL。空のあいだはXボタンを表示しない。
+    x: "",
   },
   {
     role: "共催",
@@ -150,10 +158,10 @@ export const ORGANIZERS = [
     // バンド名は未確認のため空のまま（空なら何も表示しない）。
     unit: "",
     logo: "/images/oketa.jpg",
-    url: "",
+    x: "",
   },
   // 協賛の情報が確定次第、同じ形で追加してください。
-  // { role: "協賛", name: "", unit: "", logo: "", url: "" },
+  // { role: "協賛", name: "", unit: "", logo: "", x: "" },
 ];
 
 // ----------------------------------------------------------------------------

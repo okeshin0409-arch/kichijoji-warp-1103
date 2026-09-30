@@ -1,6 +1,7 @@
 import Reveal from "./ui/Reveal.jsx";
 import SectionTitle from "./ui/SectionTitle.jsx";
 import PhotoPlaceholder from "./ui/PhotoPlaceholder.jsx";
+import XLink from "./ui/XLink.jsx";
 import { PERFORMERS } from "../data/eventData.js";
 import { isRevealed, getNow } from "../lib/reveal.js";
 import { cornerRadius, tiltDeg } from "../lib/wobble.js";
@@ -49,6 +50,8 @@ export default function Performers() {
                         {p.profile ? (
                           <p className="card-profile">{p.profile}</p>
                         ) : null}
+                        {/* 解禁前は名前を伏せているので、Xボタンも出さない */}
+                        <XLink href={p.x} name={p.name} className="x-link--card" />
                       </>
                     ) : (
                       <h3 className="coming-soon">coming soon</h3>

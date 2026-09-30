@@ -2,6 +2,7 @@ import Reveal from "./ui/Reveal.jsx";
 import SectionTitle from "./ui/SectionTitle.jsx";
 import PhotoPlaceholder from "./ui/PhotoPlaceholder.jsx";
 import { ORGANIZERS } from "../data/eventData.js";
+import XLink from "./ui/XLink.jsx";
 import { cornerRadius, tiltDeg } from "../lib/wobble.js";
 
 // 件数が少ない（1〜2件）うちは、出演者と同じ縦型カードを使うと
@@ -16,7 +17,10 @@ export default function Organizers() {
 
   return (
     <section id="organizers" className="pad-tight">
-      <div className="container">
+      {/* 【J-7】以前は幅900pxの器の中に、幅600pxのカード列を左寄せで
+          置いていたため、真上の「ライブ情報」（幅620pxの中央寄せ）と
+          左端がそろわず、中心からずれて見えていた。同じ幅の器に揃える。 */}
+      <div className="container container--narrow">
         <SectionTitle title="主催・共催" seed={2} />
 
         <div className={useHorizontal ? "org-list" : "card-grid"}>
@@ -41,6 +45,7 @@ export default function Organizers() {
                   <h3 className="card-name">{org.name}</h3>
                   {org.unit ? <p className="card-unit">{org.unit}</p> : null}
                 </div>
+                <XLink href={org.x} name={org.name} className="x-link--org" />
               </div>
             </Reveal>
           ))}
