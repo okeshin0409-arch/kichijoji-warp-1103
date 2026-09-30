@@ -588,31 +588,23 @@ section {
   align-items: center;
 }
 
-/* 猫はヒーローに1匹だけ。以前はタイトルの右肩に重ねる形だったが、
-   幅390pxではタイトル最後の文字に被って読めなくなっていた
-   （H-1）。通常のブロック要素として日付の行より上に完全に独立して
-   置くことで、テキストとの重なりが原理的に起こらないようにする。 */
-.hero-cat {
-  display: block;
-  width: 64px;
-  margin: 0 0 14px;
-  filter: drop-shadow(0 6px 10px rgba(62, 65, 54, 0.18));
-}
-
-@media (max-width: 560px) {
-  .hero-cat {
-    width: 50px;
-    margin-bottom: 10px;
-  }
-}
-
+/* 【J-4】タイトル上の小さなクレジット（はしちゃん＆おけた Pre）。
+   以前ここにあった日付は、サブタイトルの下（.hero-date）へ移した。 */
 .hero-eyebrow {
   display: block;
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
+  letter-spacing: 0.1em;
+  color: var(--sumi-soft);
+  margin-bottom: 18px;
+}
+
+.hero-date {
+  margin-top: 26px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
   letter-spacing: 0.14em;
   color: var(--umi-deep);
-  margin-bottom: 22px;
 }
 
 .hero-title {
@@ -620,7 +612,11 @@ section {
   font-family: var(--font-serif);
   font-weight: 500;
   letter-spacing: 0.02em;
-  font-size: clamp(2.6rem, 9vw, 4.6rem);
+  /* 【J-2】「あたたかい1日」が幅320pxで「あたたかい1／日」と1文字だけ
+     落ちていた。7文字が1行に収まるよう最小サイズを下げ、改行も禁止する
+     （幅300pxでも約230pxで収まることを確認済み）。 */
+  font-size: clamp(2rem, 10.5vw, 4.6rem);
+  white-space: nowrap;
   color: var(--sumi);
   line-height: 1.15;
 }
@@ -635,7 +631,7 @@ section {
 }
 
 .hero-meta {
-  margin-top: 30px;
+  margin-top: 12px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -644,6 +640,60 @@ section {
   font-size: 0.92rem;
   letter-spacing: 0.02em;
   color: var(--sumi-soft);
+}
+
+/* 【J-5】メインキャラクター（フライヤー第1弾のキャラ）。
+   画像はフライヤーから切り抜いたもので、右端がまっすぐ切れている
+   （＝画面の右端からのぞき込む構図用）。必ず画面の右端にぴったり
+   付けて、切れ目が見えないようにする。
+   スマホ〜タブレットは文字の下に「通常の流れ」で置く。縦に積むだけ
+   なので、どの幅でも文字とは重ならない。右端に付けるため、.hero の
+   左右の余白（24px）ぶん右へはみ出させる。 */
+.hero-chara {
+  align-self: flex-end;
+  margin: 28px -24px 0 0;
+  width: min(46vw, 250px);
+  line-height: 0;
+  pointer-events: none;
+}
+
+.hero-chara-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 100% 80%;
+  filter: drop-shadow(0 8px 14px rgba(62, 65, 54, 0.12));
+}
+
+/* 広い画面では、文字の右側に十分な余白があるので、フライヤーと同じく
+   画面の右端・縦中央からのぞく配置にする。1200px 未満では文字列と
+   近づきすぎるため使わない（J-5 検証で実測）。 */
+@media (min-width: 1200px) {
+  .hero-chara {
+    position: absolute;
+    right: 0;
+    margin: 0;
+    width: clamp(300px, 25vw, 420px);
+    /* 画像の縦横比は 704:895。キャラの高さの約42%ぶん上へずらして、
+       顔が縦中央あたりに来るようにする。transform は入場アニメ
+       （framer-motion）が使うので、ここでは top の計算でずらす。 */
+    top: calc(50% - clamp(160px, 13.35vw, 224px));
+  }
+}
+
+/* のぞき込みながら、ゆっくり首をかしげる（右下を軸に小さく揺れる） */
+.chara-sway {
+  animation: chara-sway 6.5s ease-in-out infinite;
+}
+
+@keyframes chara-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-2.2deg);
+  }
 }
 
 /* 本文の続きのように文中に置くと「何のための線か」が伝わらない
@@ -785,12 +835,30 @@ section {
     0 18px 30px rgba(62, 65, 54, 0.18);
 }
 
+/* 【J-1】本番フライヤー画像のとき。2:3 の枠に押し込むと左右が切れる
+   （実画像は約 1:1.41 の A 判比率）ので、枠の比率は画像そのものに任せる。 */
+.flyer-poster--image {
+  aspect-ratio: auto;
+}
+
+/* 画像の上にテープが乗るように（画像は後ろの DOM なので、そのままだと
+   テープが画像の下に隠れる） */
+.flyer-poster--image .tape {
+  z-index: 2;
+}
+
+.flyer-photo-link {
+  display: block;
+  line-height: 0;
+  box-shadow:
+    0 2px 0 rgba(62, 65, 54, 0.07),
+    0 18px 30px rgba(62, 65, 54, 0.18);
+}
+
 .flyer-poster img.flyer-photo {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 
 /* 【I-6】以前は inset:0 の絶対配置で、2:3 の枠に中身を押し込んでいた。
@@ -1274,6 +1342,22 @@ section {
   border-top: 1px solid var(--line);
 }
 
+/* 【J-5】羊毛フェルトの猫は脇役として、フッターの右端に小さく座らせる */
+.footer-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footer-cat {
+  width: 40px;
+  height: auto;
+  flex-shrink: 0;
+  transform: rotate(6deg);
+  opacity: 0.95;
+}
+
 .footer .footer-brand {
   font-family: var(--font-serif);
   letter-spacing: 0.02em;
@@ -1336,7 +1420,8 @@ section {
   html {
     scroll-behavior: auto;
   }
-  .cat-bob {
+  .cat-bob,
+  .chara-sway {
     animation: none !important;
   }
   .hero-scroll-cue .stem::after {

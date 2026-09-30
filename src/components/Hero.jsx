@@ -5,14 +5,20 @@ import NoWrapPhrase from "./ui/NoWrapPhrase.jsx";
 
 const EASE_OUT = [0.16, 1, 0.3, 1];
 
-// G-5：ファーストビューを作り直し。
-// 施主のiPhone実機では、写真つき2カラム構成が縦に長くなりすぎて
-// 「最初の画面の上に謎の空白があり、写真が中途半端な位置で切れる」
-// 状態になっていた。写真をやめ、min-height: 100svh（iOSのアドレスバー
-// の出し引きでも高さが変にジャンプしないよう vh ではなく svh を使う）
-// の中でタイトル一式を縦中央に置くだけの、シンプルな構成に作り直す。
-// 各要素は少しずつ間合いをずらしてふわっと現れる（Reveal と同じ
-// 「blurから復帰＋わずかな上昇」の考え方をヒーロー専用に手で組む）。
+// G-5：ファーストビューは min-height: 100svh の中にタイトル一式を
+// 縦中央に置くシンプルな構成（iOSのアドレスバーの出し引きでも高さが
+// 変にジャンプしないよう vh ではなく svh を使う）。
+// 各要素は少しずつ間合いをずらしてふわっと現れる。
+//
+// 【J-5】メインキャラクターを、フライヤー第1弾のキャラクターに変更。
+// フライヤーと同じく「画面の右端からのぞき込んでいる」構図で置く。
+// 羊毛フェルトの猫は脇役に回し、ヒーローからは外した
+// （出演者見出しのアイコンとフッターに小さく残している）。
+// キャラクターが企画名などの文字に重なるのは厳禁（H-1 の教訓）。
+//  ・スマホ〜タブレット：文字ブロックの下に「通常の流れ」で置き、右端へ
+//    はみ出させる。縦に積むだけなので、幅に関わらず文字と重ならない。
+//  ・広い画面（1200px〜）：左右に十分な余白があるので、画面右端・縦中央
+//    からのぞく配置にする（文字列の右端との間に余白が残る幅でだけ使う）。
 export default function Hero() {
   const [veilGone, setVeilGone] = useState(false);
 
@@ -29,30 +35,13 @@ export default function Hero() {
       />
 
       <div className="hero-inner">
-        {/* 猫はヒーローに1匹だけ（施主曰く「メインキャラクター」）。
-            以前はタイトルの右肩に重ねていたが、幅390pxでは猫がタイトル
-            最後の文字「り」に被って読めなくなっていた（施主指摘）。
-            企画名は一番読ませたい文字なので、絶対に文字へ重ねてはいけ
-            ない。日付の行の上に、独立したブロックとして完全に離して
-            置く方式に変更（通常のブロック要素の縦積みなので、幅に
-            関わらず下のテキストと重なりようがない）。 */}
-        <motion.img
-          className="hero-cat cat-bob"
-          src="/images/cat.png"
-          alt=""
-          aria-hidden="true"
-          initial={{ opacity: 0, y: 10, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, ease: EASE_OUT, delay: 0.1 }}
-        />
-
         <motion.span
           className="hero-eyebrow"
           initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.9, ease: EASE_OUT, delay: 0.2 }}
         >
-          {EVENT.dateLabel}
+          {EVENT.presenter}
         </motion.span>
 
         <motion.h1
@@ -74,6 +63,15 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
+          className="hero-date"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: EASE_OUT, delay: 0.95 }}
+        >
+          {EVENT.dateLabel}
+        </motion.div>
+
+        <motion.div
           className="hero-meta"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,6 +83,24 @@ export default function Hero() {
           </span>
         </motion.div>
       </div>
+
+      {/* メインキャラクター：右端の外から、そっとのぞき込んでくる。
+          入場（横からスッと出てくる）は framer-motion、その後のゆらゆらは
+          CSS アニメーション。同じ要素に両方をかけると transform が
+          ぶつかるため、外側（入場）と内側（ゆらぎ）で要素を分けている。 */}
+      <motion.div
+        className="hero-chara"
+        initial={{ opacity: 0, x: 70 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.3, ease: EASE_OUT, delay: 1.15 }}
+      >
+        <img
+          className="hero-chara-img chara-sway"
+          src="/images/chara.webp"
+          alt=""
+          aria-hidden="true"
+        />
+      </motion.div>
 
       {/* スクロールするとすぐフライヤーが浮かび上がってくる、という
           流れの入口。画面下部に独立して置く（本文の続きに見せない）。 */}

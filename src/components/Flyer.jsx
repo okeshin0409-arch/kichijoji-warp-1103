@@ -30,14 +30,31 @@ export default function Flyer() {
 
         <div className="flyer-wrap">
           <motion.div
-            className="flyer-poster"
+            className={`flyer-poster${EVENT.flyerImage ? " flyer-poster--image" : ""}`}
             initial={{ opacity: 0, y: 46, rotate: -3, filter: "blur(8px)" }}
             whileInView={{ opacity: 1, y: 0, rotate, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 1.2, ease: EASE_OUT }}
           >
             {EVENT.flyerImage ? (
-              <img className="flyer-photo" src={EVENT.flyerImage} alt={EVENT.name} />
+              // 【J-1】本番フライヤー画像。スマホでは文字が小さくなるため、
+              // タップすると原寸の画像が別タブで開くようにしている。
+              <>
+                <Tape rotate={-4} top={-12} left={"calc(50% - 32px)"} width={64} />
+                <a
+                  className="flyer-photo-link"
+                  href={EVENT.flyerImage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="フライヤーを大きく表示する（新しいタブで開きます）"
+                >
+                  <img
+                    className="flyer-photo"
+                    src={EVENT.flyerImage}
+                    alt={`${EVENT.name} フライヤー`}
+                  />
+                </a>
+              </>
             ) : (
               <>
                 <div className="flyer-poster-surface" />
