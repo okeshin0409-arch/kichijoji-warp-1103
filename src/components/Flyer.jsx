@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { EVENT, PERFORMERS } from "../data/eventData.js";
-import { isRevealed, getNow } from "../lib/reveal.js";
 import SectionTitle from "./ui/SectionTitle.jsx";
 import NoWrapPhrase from "./ui/NoWrapPhrase.jsx";
 import Tape from "./ui/Tape.jsx";
@@ -8,19 +7,15 @@ import { tiltDeg } from "../lib/wobble.js";
 
 const EASE_OUT = [0.16, 1, 0.3, 1];
 
-function LineupRow({ performer, now }) {
-  const revealed = isRevealed(performer.revealDate, now);
+function LineupRow({ performer }) {
   return (
     <div className="performer-row">
-      {performer.time} {revealed ? `${performer.name}（${performer.unit}）` : (
-        <span className="coming-soon">coming soon</span>
-      )}
+      {performer.time} {`${performer.name}（${performer.unit}）`}
     </div>
   );
 }
 
 export default function Flyer() {
-  const now = getNow();
   const rotate = tiltDeg(1, 1.8);
 
   return (
@@ -68,7 +63,7 @@ export default function Flyer() {
 
                   <div className="flyer-lineup">
                     {PERFORMERS.map((p) => (
-                      <LineupRow performer={p} now={now} key={p.order} />
+                      <LineupRow performer={p} key={p.order} />
                     ))}
                   </div>
 

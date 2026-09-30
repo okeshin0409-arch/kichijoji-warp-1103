@@ -11,7 +11,7 @@ import FleaMarket from "./components/FleaMarket.jsx";
 import Bar from "./components/Bar.jsx";
 import Access from "./components/Access.jsx";
 import Footer from "./components/Footer.jsx";
-import { getPreviewParam } from "./lib/reveal.js";
+import { getPreviewParam } from "./lib/time.js";
 
 function PreviewBadge() {
   const preview = getPreviewParam();

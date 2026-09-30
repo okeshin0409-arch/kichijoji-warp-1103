@@ -11,8 +11,8 @@
 //   決まっていない項目は空文字 "" のままにしておいてください
 //  （空のときは自動で "coming soon" 表記や、美しいプレースホルダー画像に
 //   なるようにコンポーネント側で処理しています）。
-// ・日付は "YYYY-MM-DD" 形式で統一してください（解禁ロジックが日本時間の
-//   0:00 を基準に自動判定します）。
+// ・【2026-09-30】毎週水曜の「解禁」の仕組みはやめ、最初から全情報を
+//   表示する形にした（施主の判断）。
 // ============================================================================
 
 export const EVENT = {
@@ -52,10 +52,10 @@ export const EVENT = {
     // 取り置きフォームの選択肢の表記（「+ 1D」）と揃えている。
     drink: "+1D",
   },
-  // 本番のフライヤー画像（第1弾・2026-09-29 確定）。
-  // 第2弾などに差し替えるときは public/images/ に画像を置いてパスを変えるだけ。
+  // 本番のフライヤー画像（出演者全員入りの版・2026-09-30 差し替え）。
+  // 差し替えるときは public/images/ に画像を置いてパスを変えるだけ。
   // 空文字にすると Flyer.jsx が CSS 組みの縦長ポスターを表示する。
-  flyerImage: "/images/flyer-1.jpg",
+  flyerImage: "/images/flyer-2.jpg",
   // チケット取り置き用 Google フォームの共有URL（2026-09-24 設定済み）。
   // 空文字にすると TicketCta.jsx が「取り置き受付 coming soon」という
   // 押せないボタンを表示する。URLが入り次第、自動で通常の
@@ -67,7 +67,7 @@ export const EVENT = {
 // 出演者（この配列の並び順 = 出演順）
 // 各25分ステージ・転換10分は確定事項。
 // photo / profile は支給され次第入れる。空のままで良い（自動的にプレースホルダー表示、
-// または何も表示しない扱いになる）。写真は解禁日を過ぎるまで表示されない。
+// または何も表示しない扱いになる）。
 // x は個人のX（旧Twitter）のプロフィールURL（例 "https://x.com/xxxx"）。
 // 空のあいだはXボタン自体を出さない。
 // ----------------------------------------------------------------------------
@@ -78,9 +78,8 @@ export const PERFORMERS = [
     name: "宝",
     unit: "nett!",
     photo: "/images/artists/takara.jpg",
-    x: "",
+    x: "https://x.com/tk6xs",
     profile: "",
-    revealDate: "2026-09-23",
   },
   {
     order: 2,
@@ -88,9 +87,8 @@ export const PERFORMERS = [
     name: "梅サワ",
     unit: "海風邪 / Rhakka",
     photo: "/images/artists/umesawa.jpg",
-    x: "",
+    x: "https://x.com/zrtaz_s2",
     profile: "",
-    revealDate: "2026-09-23",
   },
   {
     order: 3,
@@ -98,19 +96,17 @@ export const PERFORMERS = [
     name: "淡甘",
     unit: "終日柄",
     photo: "/images/artists/awaama.jpg",
-    x: "",
+    x: "https://x.com/ai_awai_amai",
     profile: "",
-    revealDate: "2026-09-30",
   },
   {
     order: 4,
     time: "13:15 - 13:40",
     name: "フクダチナツ",
     unit: "ウマシカて",
-    photo: "",
-    x: "",
+    photo: "/images/artists/fukudachinatsu.jpg",
+    x: "https://x.com/ora_chachamaru",
     profile: "",
-    revealDate: "2026-10-07",
   },
   {
     order: 5,
@@ -118,9 +114,8 @@ export const PERFORMERS = [
     name: "はしちゃん",
     unit: "よすが",
     photo: "/images/artists/hashichan.jpg",
-    x: "",
+    x: "https://x.com/lili__0909",
     profile: "",
-    revealDate: "2026-09-23",
   },
 ];
 
@@ -128,7 +123,6 @@ export const PERFORMERS = [
 // タイムテーブル
 // 先頭のリハーサル（9:45-10:15）は関係者向け情報のため一般公開サイトには
 // 載せない。OPEN（10:30）は一般向けなので掲載する。
-// 各行の演者名は PERFORMERS の解禁ロジックと連動して "coming soon" に切り替わる。
 // ----------------------------------------------------------------------------
 export const TIMETABLE_HEAD = {
   time: "10:30",
@@ -150,7 +144,7 @@ export const ORGANIZERS = [
     unit: "よすが",
     logo: "/images/artists/hashichan.jpg",
     // X（旧Twitter）のプロフィールURL。空のあいだはXボタンを表示しない。
-    x: "",
+    x: "https://x.com/lili__0909",
   },
   {
     role: "共催",
@@ -158,7 +152,7 @@ export const ORGANIZERS = [
     // バンド名は未確認のため空のまま（空なら何も表示しない）。
     unit: "",
     logo: "/images/oketa.jpg",
-    x: "",
+    x: "https://x.com/oktdrum",
   },
   // 協賛の情報が確定次第、同じ形で追加してください。
   // { role: "協賛", name: "", unit: "", logo: "", x: "" },
@@ -166,18 +160,16 @@ export const ORGANIZERS = [
 
 // ----------------------------------------------------------------------------
 // フリーマーケット / バー
-// どちらも現時点では coming soon のみ。詳細解禁日以降も出店者・メニューが
-// 空の場合は "準備中" 等を出さず coming soon 表記を維持する。
+// どちらも現時点では coming soon のみ。出店者・メニューが空の場合は
+// "準備中" 等を出さず coming soon 表記を維持する。
 // ----------------------------------------------------------------------------
 export const FLEA_MARKET = {
   headline: "フリーマーケット同時開催",
-  detailRevealDate: "2026-10-14",
   vendors: [], // 出店者情報。支給され次第 { name, item } 形式で追加。
 };
 
 export const BAR = {
   headline: "バー＆フード出店",
-  detailRevealDate: "2026-10-21",
   menu: [], // メニュー情報。支給され次第 { name, price } 形式で追加。
 };
 
@@ -197,18 +189,3 @@ export const ACCESS = {
     "吉祥寺駅"
   )}&destination=${encodeURIComponent("東京都武蔵野市吉祥寺本町1-30-10")}`,
 };
-
-// ----------------------------------------------------------------------------
-// 解禁スケジュール（毎週水曜に小出し）
-// ----------------------------------------------------------------------------
-export const REVEAL_SCHEDULE = [
-  { week: 1, date: "2026-09-23", label: "サイト公開 / フライヤー公開 / 宝・梅サワ・はしちゃん 解禁" },
-  { week: 2, date: "2026-09-30", label: "淡甘 解禁" },
-  { week: 3, date: "2026-10-07", label: "フクダチナツ 解禁" },
-  { week: 4, date: "2026-10-14", label: "フリマ 詳細解禁" },
-  { week: 5, date: "2026-10-21", label: "バー・フード 詳細解禁" },
-  { week: 6, date: "2026-10-28", label: "カウントダウン開始" },
-];
-
-// カウントダウンを表示し始める日
-export const COUNTDOWN_START_DATE = "2026-10-28";

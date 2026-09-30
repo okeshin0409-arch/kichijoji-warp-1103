@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { EVENT, COUNTDOWN_START_DATE } from "../data/eventData.js";
-import { getNow, isRevealed } from "../lib/reveal.js";
+import { EVENT } from "../data/eventData.js";
+import { getNow } from "../lib/time.js";
 
 const TARGET_TS = new Date(`${EVENT.dateISO}T${EVENT.start}:00+09:00`).getTime();
 
@@ -27,9 +27,13 @@ export default function Countdown() {
     return () => clearInterval(id);
   }, []);
 
-  if (!isRevealed(COUNTDOWN_START_DATE, now)) return null;
+  // 【J-11】以前は 10/28 から表示していたが、日付による切り替えをやめ、
+  // 常に表示する。開演時刻（11/3 11:30）を過ぎたら「00 00 00 00」の
+  // まま残らないよう、非表示にする。
+  const remaining = TARGET_TS - now.getTime();
+  if (remaining <= 0) return null;
 
-  const { days, hours, minutes, seconds } = splitRemaining(TARGET_TS - now.getTime());
+  const { days, hours, minutes, seconds } = splitRemaining(remaining);
 
   const units = [
     { value: days, label: "days" },
